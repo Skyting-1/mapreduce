@@ -18,10 +18,9 @@ import sys
 # Example output data (Key=Payment, Value=Sum of Sales)
 # Visa  205.96
 # Cash  455.51
-
+count = 0
 # Sum of all sales (values) is initialized with zero, we just started
 sum_of_values = 0
-
 # Previous key is initialized with None, we just started
 previous_key = None
 
@@ -45,7 +44,12 @@ for line in sys.stdin:
         # to the standart output (stdout)
         # Key and value are seperated by a tab (\t)
         # Line ends with new line (\n)
-        sys.stdout.write("{0}\t{1}\n".format(previous_key, sum_of_values))
+        if count > 114:
+            ave = sum_of_values/count
+            sys.stdout.write("{0}\t{1}\n".format(previous_key, ave))
+
+        count=0
+        # sys.stdout.write("{0}\t{1}\n".format(previous_key, sum_of_values))
         # Sum of sales starts again with 0
         sum_of_values = 0
 
@@ -54,8 +58,13 @@ for line in sys.stdin:
     # the float function transforms the value
     # to a float data type (like decimal)
     sum_of_values += float(value)
+    count +=1
     # the previous key for the next iteration is the current key of the this iteration 
     previous_key = key
 
 # write the last result to stdout
-sys.stdout.write("{0}\t{1}\n".format(previous_key, sum_of_values))
+if count > 114:
+
+    ave = sum_of_values/count
+
+    sys.stdout.write("{0}\t{1}\n".format(previous_key, ave))
